@@ -27,20 +27,20 @@
 #include <Protocol/OcBootstrap.h>
 
 /**
-  OpenCore version reported to log and NVRAM.
-  OPEN_CORE_VERSION must follow X.Y.Z format, where X.Y.Z are single digits.
+  OpenCORE version 注册到 log 和 NVRAM.
+  OPEN_CORE_VERSION 必须遵循 X.Y.Z 格式, 其中 X.Y.Z 每位为单个数字.
 **/
 #define OPEN_CORE_VERSION          "0.5.3"
 
 /**
-  OpenCore build type reported to log and NVRAM.
+  注册到 log 和 NVRAM 的 OpenCore 生成类型.
 **/
 #if defined (OC_TARGET_RELEASE)
-#define OPEN_CORE_TARGET           "REL" ///< Release.
+#define OPEN_CORE_TARGET           "REL" ///< 版本.
 #elif defined (OC_TARGET_DEBUG)
-#define OPEN_CORE_TARGET           "DBG" ///< Debug with compiler optimisations.
+#define OPEN_CORE_TARGET           "DBG" ///< 使用编译器优化进行调试.
 #elif defined (OC_TARGET_NOOPT)
-#define OPEN_CORE_TARGET           "NPT" ///< Debug with no compiler optimisations.
+#define OPEN_CORE_TARGET           "NPT" ///< 无编译器优化的调试.
 #else
 #error "Unknown target definition"
 #endif
@@ -48,15 +48,11 @@
 #define OPEN_CORE_IMAGE_PATH       L"EFI\\OC\\OpenCore.efi"
 
 /**
-  Multiple boards, namely ASUS P8H61-M and P8H61-M LX2 will not
-  open directories with trailing slash. It is irrelevant whether
-  front slash is present for them.
+  多个板，即华硕P8H61-M和P8H61-M LX2 不会打开带有尾随斜杠的目录。前斜线对他们来说是否存在无关紧要.
+  这意味着 L"EFI\\OC\\" and L"\\EFI\\OC\\" 都不能打开,
+  而 L"EFI\\OC" and L"\\EFI\\OC" 可以打开.
 
-  This means L"EFI\\OC\\" and L"\\EFI\\OC\\" will both fail to open,
-  while L"EFI\\OC" and L"\\EFI\\OC" will open fine.
-
-  We do not open any directories except root path and dmg, so the
-  hack lives here.
+  除了root path和dmg，我们不打开任何目录，所以配置在这里.
 **/
 #define OPEN_CORE_ROOT_PATH        L"EFI\\OC"
 
@@ -79,7 +75,7 @@
 #define OPEN_CORE_INT_NVRAM_ATTR   EFI_VARIABLE_BOOTSERVICE_ACCESS
 
 /**
-  Obtain cryptographic key if it was installed.
+  如果安装了密码密钥.
 
   @param[in]  Bootstrap  bootstrap protocol.
 
@@ -91,7 +87,7 @@ OcGetVaultKey (
   );
 
 /**
-  Load ACPI compatibility support like custom tables.
+  像自定义表一样加载ACPI兼容性支持.
 
   @param[in]  Storage   OpenCore storage.
   @param[in]  Config    OpenCore configuration.
@@ -103,7 +99,7 @@ OcLoadAcpiSupport (
   );
 
 /**
-  Load device properties compatibility support.
+  加载设备属性兼容性支持.
 
   @param[in]  Config    OpenCore configuration.
 **/
@@ -113,7 +109,7 @@ OcLoadDevPropsSupport (
   );
 
 /**
-  Load Kernel compatibility support like kexts.
+  加载内核兼容性支持，如kexts.
 
   @param[in]  Storage   OpenCore storage.
   @param[in]  Config    OpenCore configuration.
@@ -127,7 +123,7 @@ OcLoadKernelSupport (
   );
 
 /**
-  Cleanup Kernel compatibility support on failure.
+  失败时清除内核兼容性支持.
 **/
 VOID
 OcUnloadKernelSupport (
@@ -135,7 +131,7 @@ OcUnloadKernelSupport (
   );
 
 /**
-  Load NVRAM compatibility support.
+  加载NVRAM兼容性支持.
 
   @param[in]  Storage   OpenCore storage.
   @param[in]  Config    OpenCore configuration.
@@ -147,7 +143,7 @@ OcLoadNvramSupport (
   );
 
 /**
-  Load platform compatibility support like DataHub or SMBIOS.
+  加载平台兼容性支持，如DataHub或SMBIOS.
 
   @param[in]  Config    OpenCore configuration.
   @param[in]  CpuInfo   CPU information.
@@ -159,7 +155,7 @@ OcLoadPlatformSupport (
   );
 
 /**
-  Load UEFI compatibility support like drivers.
+  加载UEFI兼容性支持，如驱动程序.
 
   @param[in]  Storage   OpenCore storage.
   @param[in]  Config    OpenCore configuration.
